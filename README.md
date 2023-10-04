@@ -1,7 +1,7 @@
 # qlik-embed-test
 Qlik Embed library sample web application
 
-# ## Getting started
+# Getting started
 1. Run `npm install`
 3. Create cert and key for running local server in https: `openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout certs\key.pem -out certs\cert.pem`
 4. Create an OAuth client into your tenant
