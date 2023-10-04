@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .app {
+        position: relative;
+        width: 100%;
+        height: calc(100vh - 180px);
+        border: 1px solid #bbb;
+        border-radius: 3px;
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+      }
+      .object {
+        position: relative;
+        width: 33%;
+        height: 400px;
+        float: left;
+        border: 1px solid #bbb;
+        border-radius: 3px;
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+    <script
+    crossorigin="anonymous"
+    type="application/javascript"
+    src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components"
+    data-host="https://cvh.eu.qlikcloud.com"
+    data-client-id="bf494408325438d08169cb6677f8ec29"
+    data-redirect-uri="https://localhost:8080/oauth_callback.html"
+    data-access-token-storage="session"
+    data-auth-type="Oauth2"
+    >
+    </script>
+  </head>
+  <body>
+    <div id="root" style="width: 100%;">
+      <h1>Simple Qlik Embed demo - Static web page hosted on Azure</h1>
+      <p>Embedding a full app from a Qlik cloud tenant, authenticating with OAuth2</p>
+      <ul>
+        <li>
+          <a href="https://preview.qlik.dev/embed-js-preview/embed/embed-quick-starts/embed-js-quickstart" target="_blank">More about Qlik Embed</a>
+        </li>
+        <li>
+          <a href="" target="_blank">More about OAuth2</a>
+        </li>
+      </ul>
+      <div class="app">
+        <qlik-embed
+        ui="classic/app"
+        app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+        sheet-id="634fa6c3-d965-44fe-9bcd-4d8607f55b18"
+        >
+        </qlik-embed>
+      </div>
+
+      <div class="app">
+        <qlik-embed
+        ui="classic/app"
+        app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+        >
+        </qlik-embed>
+      </div>
+
+      <h1>Objects</h1>
+      <div class="object">
+        <qlik-embed
+        ui="object"
+        app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+        object-id="ASN"
+        >
+        </qlik-embed>
+      </div>
+      <div class="object">
+        <qlik-embed
+        ui="object"
+        app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+        object-id="VjBgyt"
+        >
+        </qlik-embed>
+      </div>
+    </div>
+  </body>
+</html>
