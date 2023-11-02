@@ -22,18 +22,57 @@
         border-radius: 3px;
         box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
       }
-    </style>
-    <script
-    crossorigin="anonymous"
-    type="application/javascript"
-    src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components"
-    data-host="https://cvh.eu.qlikcloud.com"
-    data-client-id="bf494408325438d08169cb6677f8ec29"
-    data-redirect-uri="https://localhost:8080/oauth_callback.html"
-    data-access-token-storage="session"
-    data-auth-type="Oauth2"
-    >
-    </script>
+      </style>
+      <template id="login-dialog-template">
+        <div class="login-dialog-backdrop">
+          <div class="login-dialog-content">
+            <div class="login-dialog-text">
+              This is a custom dialog. Please click the button below to authorize the charts.
+            </div>
+            <button class="login-dialog-button" data-testid="custom-goto-login-button">Go to login page</button>
+          </div>
+        </div>
+      </template>
+      <!-- Connect to SaaS -->
+      <!-- <script
+      crossorigin="anonymous"
+      type="application/javascript"
+      src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components"
+      data-host="https://cvh.eu.qlikcloud.com"
+      data-client-id="bf494408325438d08169cb6677f8ec29"
+      data-redirect-uri="https://localhost:8080/oauth_callback.html"
+      data-access-token-storage="session"
+      data-auth-type="Oauth2"
+      >
+      </script> -->
+
+      <!-- Connect to CM -->
+      <script src="./imports/main.js"></script>
+      <script
+      crossorigin="anonymous"
+      type="application/javascript"
+      src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components"
+      data-host="https://qmi-qs-585b"
+      data-login-uri="https://qmi-qs-585b"
+      data-cross-site-cookies="true"
+      data-auth-redirect-user-confirmation="confirmRedirectToLoginPage"
+      >
+      </script>
+      <script>
+        let proceedToLogin;
+        function confirmRedirectToLoginPage() {
+          return new Promise((resolve) => {
+            const dialog = document.querySelector("#login-dialog-template").content.children[0].cloneNode(true);
+            const button = dialog.querySelector(".login-dialog-button");
+            button.addEventListener("click", function (event) {
+              button.disabled = true;
+              button.textContent = "Redirecting to login page....";
+              resolve();
+            });
+            document.body.appendChild(dialog);
+          });
+        }
+      </script>
   </head>
   <body>
     <div id="root" style="width: 100%;">
@@ -47,25 +86,26 @@
           <a href="" target="_blank">More about OAuth2</a>
         </li>
       </ul>
-      <div class="app">
+      <!-- <div class="app">
         <qlik-embed
         ui="classic/app"
         app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
         sheet-id="634fa6c3-d965-44fe-9bcd-4d8607f55b18"
         >
         </qlik-embed>
-      </div>
+      </div> -->
 
       <div class="app">
         <qlik-embed
         ui="classic/app"
-        app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+        app-id="cd5a3779-1d36-45c8-a343-12552755914c"
         >
         </qlik-embed>
       </div>
 
       <h1>Objects</h1>
-      <div class="object">
+      <!-- SaaS objects -->
+      <!-- <div class="object">
         <qlik-embed
         ui="object"
         app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
@@ -78,6 +118,16 @@
         ui="object"
         app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
         object-id="VjBgyt"
+        >
+        </qlik-embed>
+      </div> -->
+
+      <!-- CM objects -->
+      <div class="object">
+        <qlik-embed
+        ui="object"
+        app-id="cd5a3779-1d36-45c8-a343-12552755914c""
+        object-id="QssGsxc"
         >
         </qlik-embed>
       </div>
