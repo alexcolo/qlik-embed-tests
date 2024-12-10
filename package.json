@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "serve": "http-server -S -C certs\\cert.pem -K certs\\key.pem",
+    "start": "http-server -S -C certs\\cert.pem -K certs\\key.pem",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "cvh",
   "license": "ISC",
   "dependencies": {
+    "@okta/okta-auth-js": "^7.8.1",
+    "@qlik/embed-web-components": "^1.2.4",
     "http-server": "^14.1.1"
   }
 }
