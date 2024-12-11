@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      //Request OAuth token
+      const params = new URLSearchParams(document.location.search);
+      const oAuthCode = params.get("code");
+      console.log("code ver: ", localStorage.getItem('codeVerifier'));
+      const oAuthTokenRequestBody = {
+          "grant_type": "authorization_code",
+          "scope": "user_default",
+          "code": oAuthCode,
+          "redirect_uri": "https://localhost:8080/oauth_callback_custom.html",
+          "code_verifier": localStorage.getItem('codeVerifier'),
+          "client_id": "bf494408325438d08169cb6677f8ec29"
+      }
+      const oAuthTokenRequest = fetch('https://cvh.eu.qlikcloud.com/oauth/token', {
+        method: 'POST',
+        body: JSON.stringify(oAuthTokenRequestBody),
+        credentials: "include",
+        headers: {
+          "content-type": "application/json"
+        }
+      })
+    </script>
+  </head>
+</html>

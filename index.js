@@ -1,6 +1,6 @@
 
 (async function myFunc () {
-    console.log("date picker element: ",document.querySelector('.qlik-daterangepicker'));
+    
     // const element = document.getElementById("myTable");
     // const refApi = await element.getRefApi();
     // const obj = await refApi.getObject();
@@ -15,6 +15,55 @@
         accessTokenStorage: "session"
     };
 
+    const customRedirectUri = 'https://localhost:8080/oauth_callback_custom.html'
+
+    //Trying to get OAuth token using redirect
+    // GENERATING CODE VERIFIER
+    function dec2hex(dec) {
+        return ("0" + dec.toString(16)).substr(-2);
+    }
+    
+    function generateCodeVerifier() {
+        var array = new Uint32Array(56 / 2);
+        window.crypto.getRandomValues(array);
+        return Array.from(array, dec2hex).join("");
+    }
+    function sha256(plain) {
+        // returns promise ArrayBuffer
+        const encoder = new TextEncoder();
+        const data = encoder.encode(plain);
+        return window.crypto.subtle.digest("SHA-256", data);
+    }
+    
+    function base64urlencode(a) {
+        var str = "";
+        var bytes = new Uint8Array(a);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+            str += String.fromCharCode(bytes[i]);
+        }
+        return btoa(str)
+            .replace(/\+/g, "-")
+            .replace(/\//g, "_")
+            .replace(/=+$/, "");
+    }
+    
+    async function generateCodeChallengeFromVerifier(v) {
+        var hashed = await sha256(v);
+        var base64encoded = base64urlencode(hashed);
+        return base64encoded;
+    }
+    const codeVerifier = generateCodeVerifier();
+    localStorage.setItem("codeVerifier", codeVerifier);
+    const codeChallenge = await generateCodeChallengeFromVerifier(codeVerifier)
+    const state = generateCodeVerifier()
+    const headTag = document.getElementsByTagName('HEAD')[0];
+    const metaTag = document.createElement('meta');
+    metaTag.setAttribute("http-equiv", "refresh");
+    metaTag.setAttribute("content", `3;url=https://${config.host}/oauth/authorize?client_id=${config.clientId}&code_challenge_method=S256&redirect_uri=${customRedirectUri}&response_type=code&scope=user_default&state=${state}&code_challenge=${codeChallenge}`);
+    headTag.appendChild(metaTag);
+    
+    return
     window.qlikApi.auth.setDefaultHostConfig(config);
 
     const { data: mySpaces } = await window.qlikApi.spaces.getSpaces();
@@ -25,18 +74,18 @@
     // get the "qix document (qlik app)"
     const app = await appSession.getDoc();
     // get a variable
-    // const myVar = await app.getVariableByName('vShowArch');   // change with your variable name
-    // // show current value
-    // const currentValue = await myVar.getLayout();
-    // console.log("current var value: ", currentValue.qNum);
-    // // set variable value (number)
-    // await myVar.setNumValue(1);                               // change with your variable value. If it is a string, change method to `setStringValue`
-    // // show new value
-    // const newValue = await myVar.getLayout();
-    // console.log("new var value: ", newValue.qNum);
-    // //get collections
-    // const collections = await window.qlikApi.collections.getCollections();
-    // console.log("collections: ", collections);
+    const myVar = await app.getVariableByName('vShowArch');   // change with your variable name
+    // show current value
+    const currentValue = await myVar.getLayout();
+    console.log("current var value: ", currentValue.qNum);
+    // set variable value (number)
+    await myVar.setNumValue(1);                               // change with your variable value. If it is a string, change method to `setStringValue`
+    // show new value
+    const newValue = await myVar.getLayout();
+    console.log("new var value: ", newValue.qNum);
+    //get collections
+    const collections = await window.qlikApi.collections.getCollections();
+    console.log("collections: ", collections);
     
     //1.Get data from existing filterpane
     const filterPane = await app.getObject("CvJ");
@@ -142,6 +191,8 @@
     //     viewstate = viewState.getViewState();
     //     console.log("viewstate: ",viewstate);
     // }
+
+    
 
 }());
 
