@@ -5,6 +5,7 @@
   "main": "index.html",
   "scripts": {
     "start": "http-server -S -C certs\\cert.pem -K certs\\key.pem",
+    "start-hf": "http-server -S -C certs\\cert.pem -K certs\\key.pem -p 5173",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "cvh",

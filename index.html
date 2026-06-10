@@ -45,7 +45,7 @@
         </div>
       </template>
       <!-- Connect to SaaS -->
-      <!-- <script
+      <script
         crossorigin="anonymous"
         type="application/javascript"
         src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@1/dist/index.min.js"
@@ -54,9 +54,39 @@
         data-redirect-uri="https://localhost:8080/oauth_callback.html"
         data-access-token-storage="session"
         data-auth-type="Oauth2"
+        data-auto-resume="true"
+      >
+      </script>
+      <!-- Connect to SaaS with OAuth impersionation token -->
+       <!-- <script
+        crossorigin="anonymous"
+        type="application/javascript"
+        src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@1/dist/index.min.js"
+        data-host="https://cvh.eu.qlikcloud.com"
+        data-client-id="482e9ccebfecd1278ba281106a53980e"
+        data-get-access-token="getAccessToken"
+        data-auth-type="Oauth2"
+      ></script>
+      <script>
+        async function getAccessToken() {
+          return 'eyJhbGciOiJFUzM4NCIsInR5cCI6IkpXVCIsImtpZCI6IlRLODJqTDAwX2tYbFgtWWNITWJ0N1I5bXJyUktnaHN0M2hnVVloLUVGMXcifQ.eyJzdWJUeXBlIjoidXNlciIsInB1cnBvc2UiOiJhY2Nlc3NUb2tlbiIsImp0aSI6IlphN0NHRXp3MEVZR2U2QjluZW9FeEd0SWw0NGZCVVpsIiwiaWF0IjoxNzczMzI2NzEyLCJleHAiOjE3NzMzNDgzMTIsImF1ZCI6Imh0dHBzOi8vY3ZoLmV1LnFsaWtjbG91ZC5jb20iLCJpc3MiOiJxbGlrLmFwaSJ9.6HI6-HWru_DVcE8EQ5Xo3qpIyBR-W-OXyABMF9I9fAZODO5gr-wr2ZHKWh5LGaFG-luUbRTILPg-G5p1H2ffpsJqNmc_BZLexWfeAKSZLWvxratkOfkLEVOYUQAS6GOI'
+          
+        }
+      </script> -->
+      <!-- HF internal -->
+      <!-- <script
+        crossorigin="anonymous"
+        type="application/javascript"
+        src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@1/dist/index.min.js"
+        data-host="https://healthfirst-internal.us.qlikcloud.com"
+        data-client-id="d3a5db6161bd17220ab858c202d83ba1"
+        data-redirect-uri="https://localhost:5173/oauth-callback.html"
+        data-access-token-storage="session"
+        data-auth-type="Oauth2"
         data-auto-redirect="true"
       >
       </script> -->
+      <!-- END HF internal -->
       
 
       <!-- Connect to Anonymous SaaS -->
@@ -79,9 +109,19 @@
         type="application/javascript"
         src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@1/dist/index.min.js"
         data-host="https://QMI-QS-f716"
-        data-login-uri="https://QMI-QS-f716"
         data-cross-site-cookies="true"
-        data-auth-redirect-user-confirmation="confirmRedirectToLoginPage"
+        data-auth-type="windowscookie"
+      >
+      </script> -->
+      <!-- Connect to CM qmi-qs-6952 -->
+      <!-- <script
+        crossorigin="anonymous"
+        type="application/javascript"
+        src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@1/dist/index.min.js"
+        data-host="https://qmi-qs-6952"
+        data-login-uri="https://qmi-qs-6952"
+        data-cross-site-cookies="true"
+        data-auth-type="windowscookie"
       >
       </script> -->
       <!-- CM with VP -->
@@ -93,6 +133,16 @@
         data-login-uri="https://QMI-QS-f716/winalt"
         data-cross-site-cookies="true"
         data-auth-redirect-user-confirmation="confirmRedirectToLoginPage"
+      >
+      </script> -->
+      <!-- CM with anonymous VP -->
+      <!-- <script
+        crossorigin="anonymous"
+        type="application/javascript"
+        src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@1/dist/index.min.js"
+        data-host="https://10.76.194.183/anonym"
+        data-login-uri="https://10.76.194.183/anonym"
+        data-cross-site-cookies="true"
       >
       </script> -->
       <script>
@@ -111,7 +161,7 @@
         }
       </script>
       <script type="module">
-        import qlikApi from "https://cdn.jsdelivr.net/npm/@qlik/api/index.mjs";
+        import qlikApi from "https://cdn.jsdelivr.net/npm/@qlik/api@2.6.0/+esm";
         window.qlikApi = qlikApi
       </script>
       <script defer src="index.js"></script>
@@ -133,6 +183,17 @@
         <iframe src="https://cvh.eu.qlikcloud.com/single/?appid=c0b1c44e-1735-4eb1-89a5-36dde6247405&sheet=7ec18422-e6b5-4b99-9fc8-89f73fb42799&theme=horizon&opt=ctxmenu,currsel" style="border:none;width:100%;height:100%;"></iframe>
       </div> -->
       <!-- CM -->
+
+      <!-- QMI-QS-6952 -->
+      <!-- <div class="app">
+        <qlik-embed
+        ui="analytics/sheet"
+        app-id="4e731c51-aa2e-4913-9f3a-6953e13dacf7"
+        sheet-id="Echpp"
+        >
+        </qlik-embed>
+      </div> -->
+     
 
       <!-- QMI-QS-f716 -->
       <!-- <div class="app">
@@ -162,8 +223,8 @@
         </qlik-embed>
       </div> -->
 
-      <h1>Charts on the fly</h1>
-      <!-- <div class="app">
+      <!-- <h1>Charts on the fly</h1>
+      <div class="app">
         <qlik-embed
         ui="analytics/chart"
         app-id="1a691ab9-2c2e-40b5-8d9a-9a5fe867ca16"
@@ -174,8 +235,25 @@
         </qlik-embed>
       </div> -->
 
+      <!-- SaaS Impersonation -->
+      <!-- <div class="app">
+        <qlik-embed
+        ui="classic/app"
+        app-id="5cf12a31-d72f-4002-b5ee-dd0415deb544"
+        >
+        </qlik-embed>
+      </div> -->
+      <!-- SaaS Impersonation END -->
       <!-- SaaS -->
-      <div class="app">
+      <!-- <div class="app">
+        <qlik-embed
+        ui="classic/app"
+        app-id="7ab56cf2-3c89-47fe-a376-bdeabdeb14f9"
+        sheet-id="LsksCe"
+        >
+        </qlik-embed>
+      </div> -->
+      <!-- <div class="app">
         <qlik-embed
         ui="classic/app"
         app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
@@ -191,37 +269,109 @@
         object-id="7ec18422-e6b5-4b99-9fc8-89f73fb42799"
         >
         </qlik-embed>
-      </div>
+      </div> -->
 
-      <div class="object" id="container">
+      <!-- <div class="app" id="container">
         <qlik-embed
-        ui="analytics/sheet"
-        app-id="c0b1c44e-1735-4eb1-89a5-36dde6247405"
-        object-id="eAbhuV"
-        id="qlikChart"
+          ui="analytics/sheet"
+          app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+          sheet-id="ZLZekJW"
+          id="qlikChart"
+          preview="true"
         >
         </qlik-embed>
-      </div>
+      </div> -->
 
-      <div class="object">
+      <!-- <div class="object">
         <qlik-embed
-        ui="classic/chart"
-        app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
-        object-id="YVNcpG"
+          ui="analytics/chart"
+          app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+          object-id="JmgghR"
+          preview="true"
         >
         </qlik-embed>
-      </div>
+      </div> -->
 
-      <div class="object">
+      <!-- <div class="object">
         <qlik-embed
-        ui="classic/chart"
-        app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
-        object-id="skQgQG"
+          ui="analytics/chart"
+          app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+          object-id="MfmJ"
+          theme="Theme SNAM"
+          preview="true"
+          id="barChart"
         >
         </qlik-embed>
-      </div>
+      </div> -->
 
-      <div class="filter">
+      <!-- mapchart -->
+      <!-- <div class="object">
+        <qlik-embed
+          ui="analytics/chart"
+          app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+          object-id="BSWZue"
+          preview="true"
+        >
+        </qlik-embed>
+      </div> -->
+
+      <!-- text object -->
+      <!-- <div class="object">
+        <qlik-embed
+          ui="analytics/chart"
+          app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+          object-id="Nrpanuz"
+          preview="true"
+        >
+        </qlik-embed>
+      </div> -->
+
+      <!-- extension object -->
+      <!-- <div class="object">
+        <qlik-embed
+          ui="object"
+          app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+          object-id="pVYYN"
+          preview="true"
+        >
+        </qlik-embed>
+      </div> -->
+
+      <!-- extension object -->
+      <!-- <div class="object">
+        <qlik-embed
+          ui="object"
+          app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+          object-id="npbNfUJ"
+          preview="true"
+        >
+        </qlik-embed>
+      </div> -->
+
+      <!-- extension object -->
+      <!-- <div class="object">
+        <qlik-embed
+          ui="object"
+          app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+          object-id="PUMANW"
+          preview="true"
+        >
+        </qlik-embed>
+      </div> -->
+
+      <!-- <div class="object">
+        <qlik-embed
+          ui="analytics/chart"
+          app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+          object-id="FeJtdHx"
+          theme="brightly-blueberry"
+          context___json="{interactions:{active: false, select: true, passive: false}}"
+          preview="true"
+        >
+        </qlik-embed>
+      </div> -->
+
+      <!-- <div class="filter">
         <qlik-embed
         ui="analytics/chart"
         app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
@@ -229,7 +379,7 @@
         id="qlikTable"
         >
         </qlik-embed>
-      </div>
+      </div> -->
 
       <!-- <div class="app">
         <qlik-embed
@@ -237,6 +387,7 @@
         app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
         theme="brightly-blueberry"
         context="language:'en'"
+        context:json="{theme:'Theme SNAM'}"
         >
         </qlik-embed>
       </div> -->
@@ -255,31 +406,59 @@
       <!-- SaaS objects -->
       <!-- <div class="object">
         <qlik-embed
-        ui="object"
-        app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
-        object-id="ASN"
-        >
-        </qlik-embed>
-      </div>
-      <div class="object">
-        <qlik-embed
-        id="myTable"
-        ui="object"
-        app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
-        object-id="VjBgyt"
-        >
-        </qlik-embed>
-      </div>
-      <div class="object">
-        <qlik-embed
         ui="classic/chart"
         app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
-        object-id="npbNfUJ"
+        object-id="ubypGS"
+        theme="brightly-blueberry"
+        context___json="{interactions:{active: true, select: true, passive: true}}"
+        iframe=""
         >
         </qlik-embed>
       </div>
-    -->
-      <!-- <button id="myButton" onclick="readTable()">Get refApi</button> -->
+      <div class="object">
+        <qlik-embed
+        ui="analytics/chart"
+        app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+        object-id="ASN"
+        theme="brightly-blueberry"
+        context___json="{interactions:{active: true, select: true, passive: true}}"
+        iframe=""
+        >
+        </qlik-embed>
+      </div> -->
+      <!-- SaaS HF object tests -->
+      <!-- <div class="object">
+        <qlik-embed
+        ui="classic/chart"
+        app-id="ce0dd81a-2d73-4267-86fa-cb70175341ca"
+        object-id="XmkJru"
+        context___json="{interactions:{active: true, select: true, passive: true}}"
+        iframe=""
+        >
+        </qlik-embed>
+      </div>
+      <div class="object">
+        <qlik-embed
+        ui="analytics/chart"
+        app-id="ce0dd81a-2d73-4267-86fa-cb70175341ca"
+        object-id="LndNqF"
+        context___json="{interactions:{active: true, select: true, passive: true}}"
+        iframe=""
+        >
+        </qlik-embed>
+      </div> -->
+      <!-- END: SaaS HF object tests -->
+      
+      <div class="object">
+        <qlik-embed
+        ui="analytics/chart"
+        app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+        object-id="CvJ"
+        >
+        </qlik-embed>
+      </div>
+   
+      <button id="myButton" onclick="readTable()">Get refApi</button>
       <button id="myButton" onclick="changeViz()">Change Viz</button>
 
       <!-- CM objects -->
@@ -306,6 +485,24 @@
         ui="classic/chart"
         app-id="1a691ab9-2c2e-40b5-8d9a-9a5fe867ca16"
         object-id="pRJyub"
+        >
+        </qlik-embed>
+      </div> -->
+      <!-- QMI-QS-6952 -->
+      <!-- <div class="object">
+        <qlik-embed
+        ui="classic/chart"
+        app-id="4e731c51-aa2e-4913-9f3a-6953e13dacf7"
+        object-id="JCzb"
+        >
+        </qlik-embed>
+      </div> -->
+      <!-- CM anonym objects -->
+      <!-- <div class="object">
+        <qlik-embed
+        ui="analytics/chart"
+        app-id="f887d014-2e9b-49a7-a169-073e10c425c4"
+        object-id="GhHSDbg"
         >
         </qlik-embed>
       </div> -->
