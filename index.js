@@ -7,13 +7,19 @@
     // let objLayout = await obj.getLayout();
 
     // Build qlik/api config
+    // const config = {
+    //     authType: "oauth2",
+    //     clientId: "bf494408325438d08169cb6677f8ec29",
+    //     redirectUri: "https://localhost:8080/oauth_callback.html",
+    //     accessTokenStorage: "session",
+    //     // webIntegrationId: "fEHOcO3g9e6shAngibIM9z1toB8lccae", //
+    //     host: "cvh.eu.qlikcloud.com" //TODO: get this automatically if possible
+    // };
+    return
     const config = {
-        authType: "oauth2",
-        clientId: "bf494408325438d08169cb6677f8ec29",
-        redirectUri: "https://localhost:8080/oauth_callback.html",
-        accessTokenStorage: "session",
-        // webIntegrationId: "fEHOcO3g9e6shAngibIM9z1toB8lccae", //
-        host: "cvh.eu.qlikcloud.com" //TODO: get this automatically if possible
+        crossSiteCookies: "true",
+        loginUri: "https://QMI-QS-4181/samltest/content/Default/redirect.html?target=QMI-QS-fc0d:8443",
+        host: "QMI-QS-4181/samltest" //TODO: get this automatically if possible
     };
 
 
@@ -72,36 +78,36 @@
     // return
     window.qlikApi.auth.setDefaultHostConfig(config);
 
-    // const { data: mySpaces } = await window.qlikApi.spaces.getSpaces();
-    // console.log("mySpaces: ", mySpaces);
+    // // const { data: mySpaces } = await window.qlikApi.spaces.getSpaces();
+    // // console.log("mySpaces: ", mySpaces);
 
     
-    // 0. Tests
-    // open new app session
-    const appSession = window.qlikApi.qix.openAppSession({appId:"633bcf3c-c309-4bc1-9fc3-969bc41aa869", autoResume:true});
-    //Tracing websocket events
+    // // 0. Tests
+    // // open new app session
+    const appSession = window.qlikApi.qix.openAppSession({appId:"fd48cb95-3fd1-453f-a0e3-c47106167047", autoResume:true});
+    // //Tracing websocket events
     const events = appSession.onWebSocketEvent((event) => {
         console.log("event: ", event);
     });
-    // // get the "qix document (qlik app)"
+    // // // get the "qix document (qlik app)"
     const app = await appSession.getDoc();
-    // alternative way for monitoring websocket event
-    app.session.rpc.on("closed", (event) => {
-        console.log("closed event: ", event);
-    })
-    app.session.rpc.on("suspended", (event) => {
-        console.log("suspended event: ", event);
-    })
-    app.session.rpc.on("resuming", (event) => {
-        console.log("resuming event: ", event);
-    })
-    app.session.rpc.on("resumed", (event) => {
-        console.log("resumed event: ", event);
-    })
-    // // get a variable
-    const myVar = await app.getVariableByName('vShowArch');   // change with your variable name
-    // // show current value
-    const currentValue = await myVar.getLayout();
+    // // alternative way for monitoring websocket event
+    // app.session.rpc.on("closed", (event) => {
+    //     console.log("closed event: ", event);
+    // })
+    // app.session.rpc.on("suspended", (event) => {
+    //     console.log("suspended event: ", event);
+    // })
+    // app.session.rpc.on("resuming", (event) => {
+    //     console.log("resuming event: ", event);
+    // })
+    // app.session.rpc.on("resumed", (event) => {
+    //     console.log("resumed event: ", event);
+    // })
+    // // // get a variable
+    // const myVar = await app.getVariableByName('vShowArch');   // change with your variable name
+    // // // show current value
+    // const currentValue = await myVar.getLayout();
     // console.log("current var value: ", currentValue.qNum);
     // // set variable value (number)
     // await myVar.setNumValue(1);                               // change with your variable value. If it is a string, change method to `setStringValue`
@@ -240,7 +246,24 @@
 
     // }
 
+    //3. Export data from existing table
+    window.exportData = async function exportData() {
+        const table = await app.getObject("VuwpM");
+        const exportResult = await table.exportData("CSV_C", "/qHyperCubeDef");
+        const downloadUrl = `https://${config.host}${exportResult.qUrl}`;
 
+        // download attribute is ignored cross-origin, so fetch the file and rename via a same-origin blob url
+        const response = await fetch(downloadUrl, { credentials: "include" });
+        const blobUrl = URL.createObjectURL(await response.blob());
+
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = "exported_data.csv";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(blobUrl);
+    }
 
     //Test on vis with viewState
     // const element = document.getElementById("barChart");

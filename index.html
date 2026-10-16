@@ -45,7 +45,7 @@
         </div>
       </template>
       <!-- Connect to SaaS -->
-      <script
+      <!-- <script
         crossorigin="anonymous"
         type="application/javascript"
         src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@1/dist/index.min.js"
@@ -56,7 +56,7 @@
         data-auth-type="Oauth2"
         data-auto-resume="true"
       >
-      </script>
+      </script> -->
       <!-- Connect to SaaS with OAuth impersionation token -->
        <!-- <script
         crossorigin="anonymous"
@@ -104,44 +104,45 @@
       <!-- Connect to CM -->
       <!-- workaround for forcing import main.js -->
       <!-- <script src="./imports/main.js"></script> -->
+      <!-- connecting to CM with SAML -->
+      <script
+        crossorigin="anonymous"
+        type="application/javascript"
+        src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@1/dist/index.min.js"
+        data-host="https://QMI-QS-4181/samltest"
+        data-login-uri="https://QMI-QS-4181/samltest/content/Default/redirect.html?target=localhost:8081"
+        data-cross-site-cookies="true"
+        data-auth-type="windowscookie"
+      >
+      </script>
+      <!-- connecting to CM with OIDC -->
       <!-- <script
         crossorigin="anonymous"
         type="application/javascript"
         src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@1/dist/index.min.js"
-        data-host="https://QMI-QS-f716"
+        data-host="https://QMI-QS-4181/oidc"
+        data-login-uri="https://QMI-QS-4181/oidc/content/Default/redirect.html?target=localhost:8081"
         data-cross-site-cookies="true"
         data-auth-type="windowscookie"
       >
       </script> -->
-      <!-- Connect to CM qmi-qs-6952 -->
+      <!-- connecting to CM with Windows auth -->
       <!-- <script
         crossorigin="anonymous"
         type="application/javascript"
         src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@1/dist/index.min.js"
-        data-host="https://qmi-qs-6952"
-        data-login-uri="https://qmi-qs-6952"
+        data-host="https://QMI-QS-4181"
+        data-login-uri="https://QMI-QS-4181/content/Default/redirect.html?target=localhost:8081"
         data-cross-site-cookies="true"
         data-auth-type="windowscookie"
       >
-      </script> -->
-      <!-- CM with VP -->
-      <!-- <script
-        crossorigin="anonymous"
-        type="application/javascript"
-        src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@1/dist/index.min.js"
-        data-host="https://QMI-QS-f716/winalt"
-        data-login-uri="https://QMI-QS-f716/winalt"
-        data-cross-site-cookies="true"
-        data-auth-redirect-user-confirmation="confirmRedirectToLoginPage"
-      >
-      </script> -->
+      </script>       -->
       <!-- CM with anonymous VP -->
       <!-- <script
         crossorigin="anonymous"
         type="application/javascript"
         src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@1/dist/index.min.js"
-        data-host="https://10.76.194.183/anonym"
-        data-login-uri="https://10.76.194.183/anonym"
+        data-host="https://QMI-QS-4181/anonym"
         data-cross-site-cookies="true"
       >
       </script> -->
@@ -255,14 +256,43 @@
       </div> -->
       <!-- <div class="app">
         <qlik-embed
-        ui="classic/app"
-        app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
-        sheet-id="634fa6c3-d965-44fe-9bcd-4d8607f55b18"
-        >
+          id="main-embed"
+          ui="classic/app"
+          app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
+          sheet-id="634fa6c3-d965-44fe-9bcd-4d8607f55b18"
+          on-sheet-changed="onSheetChanged()">
+        </qlik-embed>
+      </div> -->
+      <!-- <div class="app">
+        <qlik-embed
+          id="main-embed"
+          ui="analytics/sheet"
+          app-id="4b8610a7-e5b1-4a7f-afcc-81f957ed2ddc"
+          sheet-id="pjHzhM">
+        </qlik-embed>
+      </div> -->
+      <!-- <div class="app">
+        <qlik-embed
+          id="main-embed"
+          ui="classic/app"
+          app-id="fd48cb95-3fd1-453f-a0e3-c47106167047"
+        </qlik-embed>
+      </div> -->
+      <div class="app">
+        <qlik-embed
+          id="main-embed"
+          ui="classic/app"
+          app-id="fd48cb95-3fd1-453f-a0e3-c47106167047"
         </qlik-embed>
       </div>
+      <script>
+        function onSheetChanged() {
+          console.log("Sheet changed");
+        }
 
-      <div class="app">
+      </script>
+
+      <!-- <div class="app">
         <qlik-embed
         ui="analytics/sheet"
         app-id="c0b1c44e-1735-4eb1-89a5-36dde6247405"
@@ -449,17 +479,18 @@
       </div> -->
       <!-- END: SaaS HF object tests -->
       
-      <div class="object">
+      <!-- <div class="object">
         <qlik-embed
         ui="analytics/chart"
         app-id="633bcf3c-c309-4bc1-9fc3-969bc41aa869"
         object-id="CvJ"
         >
         </qlik-embed>
-      </div>
+      </div> -->
    
       <button id="myButton" onclick="readTable()">Get refApi</button>
       <button id="myButton" onclick="changeViz()">Change Viz</button>
+      <button id="myButton" onclick="exportData()">Export Data</button>
 
       <!-- CM objects -->
        <!-- QMI-QS-585b -->

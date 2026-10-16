@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <script>
+      // allow-list, not arbitrary passthrough — an unchecked ?target= would be an open redirect
+      var ALLOWED_TARGETS = [
+        "localhost:8081",
+        "QMI-QS-fc0d:8443",
+        // add one entry per webapp that needs to land here
+      ];
+
+      var params = new URLSearchParams(window.location.search);
+      var target = params.get("target");
+      params.delete("target");
+
+      var host = ALLOWED_TARGETS.indexOf(target) !== -1 ? target : ALLOWED_TARGETS[0];
+      var qs = params.toString();
+      window.location.replace("https://" + host + "/" + (qs ? "?" + qs : "") + window.location.hash);
+    </script>
+  </body>
+</html>
